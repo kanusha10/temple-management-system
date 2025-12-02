@@ -1,0 +1,248 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+/* Prevent scrolling and set full height */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Center everything */
+.page-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container for forms */
+.login-container {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 40px 30px;
+    height:450px;
+    margin-bottom: 80px;
+    min-height: 400px;      /* reduced from 600px, fits smaller forms */
+    border-radius: 15px;
+    width: 380px;
+    max-width: 90%;
+    text-align: center;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* vertically centers content */
+}
+
+
+/* Label for dropdown */
+#loginLabel {
+    margin-bottom: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #916b3b;
+    text-align: center;
+}
+
+/* Dropdown styling */
+select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    background: #f5f0e6;
+    color: #333;
+    transition: transform 0.2s;
+}
+select:hover { transform: scale(1.02); }
+
+/* Register link styling */
+.toggle-text-top {
+    color: #916b3b;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 14px;
+    margin-bottom: 25px;
+    display: block;
+    text-align: left;
+}
+.toggle-text-top:hover { color: #634c27; }
+
+/* Form wrapper */
+.form-wrapper {
+    display: none;
+    grid-template-rows: auto 1fr;
+    gap: 15px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+    width: 100%;
+}
+.form-wrapper.active {
+    display: grid;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Heading inside form */
+.form-wrapper h3 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #916b3b;
+    text-align: center;
+}
+
+/* Stack inputs vertically */
+form input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    background: rgba(255,255,255,0.2);
+    color: #333;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+/* Buttons */
+form button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+form button[type="submit"] {
+    background: #c6a664;
+    color: white;
+}
+form button[type="submit"]:hover {
+    background: #a88b4a;
+    transform: scale(1.02);
+}
+
+.back-button {
+    background: #e0d9c8;
+    color: #333;
+}
+.back-button:hover {
+    background: #d1c5a9;
+}
+</style>
+
+<div class="page-wrapper">
+    <div class="login-container">
+        <!-- Dropdown -->
+        <label for="loginType" id="loginLabel">Select Login Type</label>
+        <select id="loginType">
+            <option value="" disabled selected>Choose...</option>
+            <option value="user">User Login</option>
+            <option value="admin">Admin Login</option>
+        </select>
+
+        <!-- Register link below dropdown -->
+        <span class="toggle-text-top" id="registerLinkTop" onclick="showRegisterForm()">Don't have an account? Register here</span>
+
+        <!-- User login form -->
+        <div id="userLoginForm" class="form-wrapper">
+            <h3>User Login</h3>
+            <form method="POST" action="{{ url_for('login') }}">
+                <input type="hidden" name="role" value="user">
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+                <button type="button" class="back-button" onclick="backToDropdown()">Back</button>
+            </form>
+        </div>
+
+        <!-- Admin login form -->
+        <div id="adminLoginForm" class="form-wrapper">
+            <h3>Admin Login</h3>
+            <form method="POST" action="{{ url_for('login') }}">
+                <input type="hidden" name="role" value="admin">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+                <button type="button" class="back-button" onclick="backToDropdown()">Back</button>
+            </form>
+        </div>
+
+        <!-- Registration form -->
+        <div id="registerForm" class="form-wrapper">
+            <h3>Register</h3>
+            <form method="POST" action="{{ url_for('register_user') }}">
+                <input type="text" name="first_name" placeholder="First Name" required>
+                <input type="text" name="last_name" placeholder="Last Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                <button type="submit">Register</button>
+                <button type="button" class="back-button" onclick="backToDropdown()">Back</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+const loginTypeSelect = document.getElementById("loginType");
+const userForm = document.getElementById("userLoginForm");
+const adminForm = document.getElementById("adminLoginForm");
+const registerForm = document.getElementById("registerForm");
+const registerLinkTop = document.getElementById("registerLinkTop");
+const loginLabel = document.getElementById("loginLabel");
+
+function hideAllForms() {
+    [userForm, adminForm, registerForm].forEach(f => {
+        f.classList.remove("active");
+        f.style.display = "none";
+    });
+}
+
+function backToDropdown() {
+    hideAllForms();
+    loginTypeSelect.style.display = "block";
+    loginLabel.style.display = "block";
+    registerLinkTop.style.display = "block";
+    loginTypeSelect.selectedIndex = 0;
+}
+
+loginTypeSelect.addEventListener("change", () => {
+    hideAllForms();
+    registerLinkTop.style.display = "none";
+    loginTypeSelect.style.display = "none";
+    loginLabel.style.display = "none";
+
+    if (loginTypeSelect.value === "user") {
+        userForm.style.display = "grid";
+        setTimeout(() => userForm.classList.add("active"), 50);
+    } else if (loginTypeSelect.value === "admin") {
+        adminForm.style.display = "grid";
+        setTimeout(() => adminForm.classList.add("active"), 50);
+    }
+});
+
+function showRegisterForm() {
+    hideAllForms();
+    loginTypeSelect.style.display = "none";
+    loginLabel.style.display = "none";
+    registerLinkTop.style.display = "none";
+
+    registerForm.style.display = "grid";
+    setTimeout(() => registerForm.classList.add("active"), 50);
+}
+</script>
+
+{% endblock %}

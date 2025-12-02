@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1 style="text-align:center;">About TempleBook</h1>
+
+<div class="about-container">
+  <div class="about-box">
+    <p>This web application allows users to check temple crowd levels and book darshana or abhisheka slots with ease. It provides real-time crowd updates, simple online booking, and a dedicated section to view upcoming bookings.</p>
+
+<p>It provides role-based access to both devotees and admin to ensure safety.</p>
+
+<p>In the admin section, the admin has access to add new temples to the web app.</p>
+
+  </div>
+</div>
+
+<style>
+.about-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.about-box {
+    background-color: #fff8c4;
+    padding: 25px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.about-box p {
+    margin: 15px 0;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+</style>
+
+{% endblock %}

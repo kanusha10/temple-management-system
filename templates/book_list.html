@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Book Ticket</h1>
+
+<div class="search-row">
+  <input id="searchTemple" placeholder="Search temple by name..." />
+</div>
+
+<div class="grid">
+  {% for t in temples %}
+  <div class="card temple-card" data-name="{{ t.name|lower }}" data-id="{{ t.id }}">
+    <img src="{{ t.image }}" alt="{{ t.name }}">
+    <div class="card-body">
+      <h3>{{ t.name }}</h3>
+      <p>Open: {{ t.open_time }} - {{ t.close_time }}</p>
+
+      <button class="view-details-btn">View Details</button>
+      <button class="book-btn">Book</button>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+  // FILTER TEMPLES
+  const searchInput = document.getElementById('searchTemple');
+  searchInput.addEventListener('input', function(){
+    const q = searchInput.value.toLowerCase();
+    document.querySelectorAll('.temple-card').forEach(c=>{
+      const name = c.getAttribute('data-name');
+      c.style.display = name.includes(q) ? 'block' : 'none';
+    });
+  });
+
+  // ADD EVENT LISTENERS TO BUTTONS
+  document.querySelectorAll('.temple-card').forEach(card => {
+    const templeId = card.getAttribute('data-id');
+
+    card.querySelector('.view-details-btn').addEventListener('click', function(){
+      window.location.href = "{{ url_for('temple_details', temple_id='ID') }}".replace("ID", templeId);
+    });
+
+    card.querySelector('.book-btn').addEventListener('click', function(){
+      window.location.href = "{{ url_for('book_temple', temple_id='ID') }}".replace("ID", templeId);
+    });
+  });
+
+});
+</script>
+{% endblock %}

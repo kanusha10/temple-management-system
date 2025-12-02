@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Crowd Status</h1>
+<div class="search-row">
+  <input id="searchCrowd" placeholder="Search temple by name..." oninput="filterCrowd()" />
+</div>
+
+<div class="grid">
+  {% for t in temples %}
+  <div class="card crowd-card" data-name="{{ t.name|lower }}">
+    <img src="{{ t.image }}" alt="{{ t.name }}">
+    <div class="card-body">
+      <h3>{{ t.name }}</h3>
+      <p>Open: {{ t.open_time }} - {{ t.close_time }}</p>
+      <p>Crowd: <span class="status {{ t.status_color }}">{{ t.status }}</span> ({{ t.current_crowd }})</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<script>
+function filterCrowd(){
+  const q = document.getElementById('searchCrowd').value.toLowerCase();
+  document.querySelectorAll('.crowd-card').forEach(c=>{
+    const name = c.getAttribute('data-name');
+    c.style.display = name.includes(q) ? 'block' : 'none';
+  });
+}
+</script>
+{% endblock %}

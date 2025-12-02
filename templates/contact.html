@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1 style="text-align:center;">Contact Us</h1>
+
+<div class="contact-container">
+  <div class="info-box">
+    <p>Have questions or need assistance? We’re here to help. Feel free to reach out to us through any of the options below:</p>
+  </div>
+
+  <div class="contact-box">
+    <p><i class="fas fa-envelope icon"></i> <strong>Email:</strong> <a href="mailto:support@templebooking.com">support@templebooking.com</a></p>
+
+    <p><i class="fas fa-map-marker-alt icon"></i> <strong>Address:</strong><br>
+    Temple Booking Service<br>
+    Davangere, Karnataka – 577004</p>
+
+    <p><i class="fas fa-phone icon"></i> <strong>Phone:</strong> <a href="tel:+918888888888">+91 8888888888</a><br>
+    (Available 9:00 AM – 6:00 PM)</p>
+
+    <p><i class="fas fa-mobile-alt icon"></i> <strong>Other Contact:</strong> <a href="tel:+919876543210">+91-98765-43210</a><br>
+    Office Hours: Mon - Sat, 09:00 - 18:00</p>
+
+  </div>
+</div>
+
+<style>
+.contact-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.info-box {
+    background-color: #fff8c4;
+    border-left: 5px solid #ffd700;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+}
+
+.contact-box {
+    background-color: #fff8c4;
+    padding: 25px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.contact-box p {
+    margin: 15px 0;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.contact-box a {
+    color: #ffb900;
+    text-decoration: none;
+}
+
+.contact-box a:hover {
+    text-decoration: underline;
+}
+
+.icon {
+    font-size: 1.5rem;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+</style>
+
+<!-- Load Font Awesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+{% endblock %}

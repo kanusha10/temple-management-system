@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="page-title">Add Temple (Admin)</h1>
+<form method="post" class="add-temple-form">
+  <div class="row"><label>Name</label><input name="name" required></div>
+  <div class="row"><label>Location</label><input name="location"></div>
+  <div class="row"><label>Open Time (HH:MM)</label><input name="open_time" required></div>
+  <div class="row"><label>Close Time (HH:MM)</label><input name="close_time" required></div>
+  <div class="row"><label>Threshold crowd (integer)</label><input name="threshold" type="number" value="100"></div>
+  <div class="row"><label>Darshana Amount (INR)</label><input name="darshana_amount" type="number"></div>
+  <div class="row"><label>Abhisheka types (comma separated)</label><input name="abhisheka_types"></div>
+  <div class="row"><label>Abhisheka amounts (comma separated, same order)</label><input name="abhisheka_amounts"></div>
+  <div class="row"><label>Image URL</label><input name="image"></div>
+  <div class="row"><label>History (5-10 lines)</label><textarea name="history" rows="6"></textarea></div>
+  <div class="row"><button type="submit">Add Temple</button></div>
+</form>
+
+<style>
+body {
+    background-color: #1a1a1a;
+    font-family: 'Arial', sans-serif;
+    color: #f0f0f0;
+}
+
+/* Page Title */
+.page-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin: 30px 0;
+    color: black;
+}
+
+/* Center form with transparent background */
+.add-temple-form {
+    max-width: 700px;
+    margin: 0 auto 50px auto;
+    background-color: rgba(0, 0, 0, 0.3); /* transparent dark */
+    padding: 30px 40px;
+    border-radius: 15px;
+    border: 1px solid #ffd700; /* subtle gold border */
+}
+
+/* Form rows */
+.add-temple-form .row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.add-temple-form label {
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #fff8b5; /* light yellow */
+}
+
+.add-temple-form input,
+.add-temple-form textarea {
+    padding: 10px 12px;
+    font-size: 1rem;
+    border: 1px solid #ffd700;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.6); /* slightly transparent inputs */
+    color: #fff;
+    outline: none;
+}
+
+/* Submit button in dark color */
+.add-temple-form button {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    background-color: #333333; /* dark button */
+    color: #ffd700; /* gold text */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    align-self: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .add-temple-form {
+        padding: 20px;
+        margin: 20px;
+    }
+}
+</style>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Your Transactions</h1>
+
+<div class="grid">
+  {% for t in transactions %}
+  <div class="card tx-card">
+    <div class="card-body">
+      <h3>{{ t.temple_name }}</h3>
+      <p><strong>Date:</strong> <strong>{{ t.date }}</strong></p>
+      <p><strong>Amount:</strong> <strong>₹{{ t.amount }}</strong></p>
+      <p>Name: {{ t.first_name }} {{ t.last_name }}</p>
+      <p>Ticket Type: {{ t.ticket_type }} {% if t.abhisheka_type %} ({{ t.abhisheka_type }}) {% endif %}</p>
+    </div>
+  </div>
+  {% else %}
+  <div class="info-box">No valid upcoming tickets found.</div>
+  {% endfor %}
+</div>
+{% endblock %}

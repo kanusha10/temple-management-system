@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="home-background">
+  <div class="home-welcome">
+    <h1 class="stylish-text">Welcome to Divine Pass</h1>
+    <p>Your gateway to discovering and booking famous temples with ease.</p>
+    <p>
+      Divine Pass allows you to explore historic temples, learn about their rich history,
+      and conveniently book your visits online.
+    </p>
+
+    <div class="home-buttons">
+
+      {% if session.get('user') %}
+        <h3 class="text-light mb-3">
+          Hello Devotee
+        </h3>
+      {% endif %}
+
+      {% if not session.get('user') %}
+        <a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
+      {% endif %}
+
+      <a href="{{ url_for('book_list') }}" class="btn btn-success">View Temples</a>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

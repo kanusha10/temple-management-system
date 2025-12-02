@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Book Ticket - {{ temple.name }}</h1>
+
+<div class="booking-form">
+  <form method="post" action="{{ url_for('submit_booking') }}" id="bookingForm">
+    <input type="hidden" name="temple_id" value="{{ temple.id }}">
+
+    <div class="row">
+      <label>Temple</label>
+      <div>{{ temple.name }}</div>
+    </div>
+
+    <div class="row">
+      <label>First Name</label>
+      <input name="first_name" required>
+    </div>
+
+    <div class="row">
+      <label>Last Name</label>
+      <input name="last_name">
+    </div>
+
+    <div class="row">
+      <label>Gender</label>
+      <select name="gender" required>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="row">
+      <label>Email</label>
+      <input name="email" type="email" required value="{{ session.user.email if session.user is defined }}">
+    </div>
+
+    <div class="row">
+      <label>Phone</label>
+      <input name="phone" required>
+    </div>
+
+    <div class="row">
+      <label>Ticket Type</label>
+      <select name="ticket_type" id="ticket_type" onchange="ticketTypeChanged()" required>
+        <option value="darshana">Darshana</option>
+        <option value="abhisheka">Abhisheka</option>
+      </select>
+    </div>
+
+    <div class="row" id="abhishekaRow" style="display:none">
+      <label>Choose Abhisheka</label>
+      <select id="abhisheka_select" name="abhisheka_type" onchange="updateAmount()">
+        <option value="">--select--</option>
+        {% for a in temple.abhishekas %}
+          <option value="{{ a.name }}" data-amount="{{ a.amount }}">
+            {{ a.name }} (₹{{ a.amount }})
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="row">
+      <label>Date</label>
+      <input type="date" name="date" id="dateField" required>
+    </div>
+
+    <div class="row">
+      <label>Amount (INR)</label>
+      <div id="amountDisplay"><strong>₹0</strong></div>
+      <input type="hidden" name="amount" id="amountInput">
+    </div>
+
+    <div class="row">
+      <button type="submit">Book Ticket</button>
+    </div>
+
+  </form>
+</div>
+
+<script>
+// SAFE JINJA → JS
+const darshanaAmt = JSON.parse('{{ temple.darshana_amount | tojson }}');
+const isLoggedIn = JSON.parse('{{ (session.get("user") is not none) | tojson }}');
+const loginUrl = "{{ url_for('login', next=request.path) }}";
+
+// DATE SETUP
+const todayStr = new Date().toISOString().slice(0, 10);
+const dateField = document.getElementById('dateField');
+
+dateField.value = todayStr;
+dateField.min = todayStr;
+
+function ticketTypeChanged() {
+  const t = document.getElementById('ticket_type').value;
+
+  if (t === 'darshana') {
+    document.getElementById('abhishekaRow').style.display = 'none';
+    dateField.value = todayStr;
+    dateField.min = todayStr;
+    dateField.max = todayStr;
+    setAmount(darshanaAmt);
+
+  } else {
+    document.getElementById('abhishekaRow').style.display = 'block';
+
+    const maxDate = new Date();
+    maxDate.setDate(maxDate.getDate() + 7);
+
+    dateField.min = todayStr;
+    dateField.max = maxDate.toISOString().slice(0, 10);
+    dateField.value = todayStr;
+
+    setAmount(0);
+  }
+}
+
+function updateAmount() {
+  const sel = document.getElementById('abhisheka_select');
+  const amt = sel.options[sel.selectedIndex].dataset.amount || 0;
+  setAmount(amt);
+}
+
+function setAmount(amount) {
+  document.getElementById('amountDisplay').innerHTML = "<strong>₹" + amount + "</strong>";
+  document.getElementById('amountInput').value = amount;
+}
+
+document.getElementById('bookingForm').addEventListener('submit', function(e) {
+  if (!isLoggedIn) {
+    e.preventDefault();
+    alert("Please login to book tickets.");
+    window.location.href = loginUrl;
+  }
+});
+
+ticketTypeChanged();
+</script>
+
+{% endblock %}

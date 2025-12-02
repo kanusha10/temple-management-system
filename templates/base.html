@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Temple Booking</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Slightly wider sidebar */
+    .sidebar {
+        width: 220px;  /* increased from typical 200px */
+    }
+
+    /* Profile section at top */
+    .sidebar .profile {
+        display: flex;
+        align-items: center;
+        padding: 15px 10px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .sidebar .profile-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #ffb900;
+        color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        margin-right: 10px;
+    }
+
+    .sidebar .profile-name {
+        font-weight: 600;
+        font-size: 0.95rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="brand"><i class="fa-solid fa-gopuram"></i> Divine Pass</div>
+
+    {% if session.get('user') %}
+      <div class="profile">
+        <div class="profile-icon"><i class="fa-solid fa-user"></i></div>
+        <div class="profile-name">{{ session.user.first_name if session.user.first_name is defined else 'Devotee' }}</div>
+      </div>
+    {% elif session.get('admin') %}
+      <div class="profile">
+        <div class="profile-icon"><i class="fa-solid fa-user-shield"></i></div>
+        <div class="profile-name">Admin: {{ session.admin.username }}</div>
+      </div>
+    {% endif %}
+
+    <a href="{{ url_for('home') }}"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="{{ url_for('about') }}"><i class="fa-solid fa-circle-info"></i> About</a>
+    <a href="{{ url_for('contact') }}"><i class="fa-solid fa-envelope"></i> Contact</a>
+    <a href="{{ url_for('book_list') }}"><i class="fa-solid fa-ticket"></i> Book Ticket</a>
+    <a href="{{ url_for('crowd') }}"><i class="fa-solid fa-users"></i> Crowd Status</a>
+    {% if session.get('admin') %}
+      <a href="{{ url_for('add_temple') }}"><i class="fa-solid fa-plus"></i> Add Temple</a>
+    {% endif %}
+    {% if not session.get('user') and not session.get('admin') %}
+      <a href="{{ url_for('login') }}"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+    {% endif %}
+    {% if session.get('user') or session.get('admin') %}
+      <a href="{{ url_for('transactions') }}"><i class="fa-solid fa-receipt"></i> Transaction</a>
+      <a href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+    {% endif %}
+  </div>
+
+  <div class="main">
+    <div class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="flashwrap">
+            {% for cat, msg in messages %}
+              <div class="flash {{cat}}">{{ msg }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </div>
+
+    <!-- <footer>
+      <div class="footer-inner">
+        <p>Divine Pass • contact: support@divinepass.example • Terms apply • Built as demo</p>
+      </div>
+    </footer> -->
+  </div>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

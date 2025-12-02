@@ -1,0 +1,111 @@
+[
+  {
+    "id": "1",
+    "name": "Sri Kashi Vishwanath",
+    "location": "Varanasi",
+    "open_time": "05:00",
+    "close_time": "22:00",
+    "threshold": 300,
+    "darshana_amount": 100,
+    "abhishekas": [
+      {
+        "name": "Rudra Abhisheka",
+        "amount": 2500
+      },
+      {
+        "name": "Chanting Abhisheka",
+        "amount": 1800
+      }
+    ],
+    "image": "https://facts.net/wp-content/uploads/2023/09/8-intriguing-facts-about-kashi-vishwanath-temple-1694647916.jpg",
+    "history": "Kashi Vishwanath is one of the most famous Hindu temples dedicated to Lord Shiva. It has been a centre of Hindu spiritual and cultural activity for centuries. The temple is on the western bank of the holy river Ganges. Pilgrims believe a visit brings salvation."
+  },
+  {
+    "id": "2",
+    "name": "Tirumala Venkateswara",
+    "location": "Tirupati",
+    "open_time": "03:00",
+    "close_time": "23:00",
+    "threshold": 500,
+    "darshana_amount": 120,
+    "abhishekas": [
+      {
+        "name": "Suprabhatam Abhisheka",
+        "amount": 3000
+      }
+    ],
+    "image": "https://www.gosahin.com/upload/destinations/1515608449_Tirupati-Balaji1.jpg",
+    "history": "Tirumala Venkateswara Temple is dedicated to Lord Venkateswara. Situated on seven hills, it attracts millions of devotees every year due to its spiritual significance and rich traditions."
+  },
+  {
+    "id": "3",
+    "name": "Meenakshi Amman",
+    "location": "Madurai",
+    "open_time": "04:30",
+    "close_time": "21:00",
+    "threshold": 250,
+    "darshana_amount": 80,
+    "abhishekas": [
+      {
+        "name": "Abhisheka Classic",
+        "amount": 2000
+      },
+      {
+        "name": "Silver Abhisheka",
+        "amount": 3500
+      }
+    ],
+    "image": "https://c8.alamy.com/comp/2BY4HK0/madurai-meenakshi-amman-temple-south-india-2BY4HK0.jpg",
+    "history": "Meenakshi Amman Temple is famous for its stunning Dravidian architecture, towering gopurams and rich cultural heritage. Dedicated to Goddess Meenakshi and Lord Sundareswarar."
+  },
+  {
+    "id": "4",
+    "name": "Pavagadh Temple",
+    "location": "Pavagadha Gujarat",
+    "open_time": "5:30 AM",
+    "close_time": "7:30 PM",
+    "threshold": 100,
+    "darshana_amount": 70.0,
+    "abhishekas": [
+      {
+        "name": "rudra abhisheka",
+        "amount": 1000.0
+      },
+      {
+        "name": "mala abhisheka",
+        "amount": 1500.0
+      },
+      {
+        "name": "kalasa puja",
+        "amount": 1600.0
+      }
+    ],
+    "image": "https://www.dreamtrix.com/wp-content/uploads/2022/10/Pavagadh-Jain-Temple.jpeg",
+    "history": "Jagat Janani Maa Kalika Devi is believed to be seated on the peak of the Pavagadh in the form of a real Mahashakti from thousands of years. Jagdamba Sri Kalika Devi is considered to be the eternal form of Adya Vidya, Brahmaswarupini and Kalyani."
+  },
+  {
+    "id": "5",
+    "name": "Marikamba Temple",
+    "location": "Sirsi",
+    "open_time": "06:00 AM",
+    "close_time": "10:00 PM",
+    "threshold": 104,
+    "darshana_amount": 0.0,
+    "abhishekas": [
+      {
+        "name": "Kumkumarchane with Mangalarati",
+        "amount": 10.0
+      },
+      {
+        "name": "Panchamrita Abhisheka",
+        "amount": 50.0
+      },
+      {
+        "name": "Pushpalankara Pooja",
+        "amount": 501.0
+      }
+    ],
+    "image": "https://i0.wp.com/stepstogether.in/wp-content/uploads/2021/03/IMG_20191102_173023-01-01.jpg?resize=841%2C530&ssl=1",
+    "history": "Shree Marikamba Temple, located in Sirsi, Karnataka, is a revered Shakti Peetha dedicated to Goddess Marikamba Devi, a powerful form of Durga Devi. Known as “Doddamma Temple” (meaning Elder Mother), it is one of the most sacred and vibrant temples in the state, attracting thousands of devotees, especially during Navratri."
+  }
+]

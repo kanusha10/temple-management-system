@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="temple-container">
+    <h1 class="temple-title">{{ temple.name }}</h1>
+
+    <div class="temple-details">
+
+        <img src="{{ temple.image }}" alt="{{ temple.name }}" class="temple-image">
+
+        <div class="temple-info">
+            <p class="info-label"><strong>Location:</strong> {{ temple.location }}</p>
+            <p class="info-label"><strong>Timings:</strong> {{ temple.open_time }} - {{ temple.close_time }}</p>
+
+            <h3>Temple History:</h3>
+            <p class="history">{{ temple.history }}</p>
+        </div>
+
+        <button id="bookBtn" class="btn btn-primary book-btn">
+            Book Ticket
+        </button>
+    </div>
+</div>
+
+<style>
+.temple-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+    text-align: center;
+}
+
+.temple-title {
+    font-size: 2.5rem;
+    color: black;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px #000;
+}
+
+.temple-details {
+    background-color: rgba(26, 26, 26, 0.5);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.temple-image {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 25px auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.temple-info p {
+    margin: 12px 0;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #f0f0f0;
+    text-shadow: 1px 1px 2px #000;
+    text-align: center;
+}
+
+.info-label {
+    color: #ffd700;
+}
+.info-label strong{
+    color:#ffd700;
+}
+.temple-info h3 {
+    color: #ffd700;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 2px #000;
+}
+
+.history {
+    line-height: 1.8;
+    text-align: justify;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.book-btn {
+    display: inline-block;
+    margin: 30px auto 0 auto;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    background-color: #ffd700;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+.book-btn:hover {
+    background-color: #e6b800;
+    transform: scale(1.05);
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const bookBtn = document.getElementById("bookBtn");
+    bookBtn.addEventListener("click", function() {
+        window.location.href = "{{ url_for('book_temple', temple_id=temple.id) }}";
+    });
+});
+</script>
+
+{% endblock %}
