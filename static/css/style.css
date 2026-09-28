@@ -312,6 +312,14 @@ body {
 }
 
 
+
+/* Responsive */
+@media (max-width: 768px) {
+    .add-temple-form {
+        padding: 20px;
+        margin: 20px;
+    }
+}
 /* ============================================
    RESPONSIVE
 ============================================ */
